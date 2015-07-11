@@ -14,7 +14,7 @@
 				<div class="preview-{filetype} preview-file">
 					<f:link.page pageUid="{baseUrl}{path}{file}" target="_blank">
 						<f:if condition="{filetype}=='image'">
-							<img src="{baseUrl}{f:uri.image(src:'{path}{file}',width:width,height:height)}" alt="preview" />
+							<img src="{baseUrl}{f:uri.image(src:'{path}{file}',width:width,height:height,maxWidth:maxWidth,maxHeight:maxHeight)}" alt="preview" />
 						</f:if>
 					
 						<f:if condition="{filetype}=='document'">

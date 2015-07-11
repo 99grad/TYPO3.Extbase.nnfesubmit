@@ -38,6 +38,97 @@ plugin.tx_nnfesubmit {
 		maxUploadFileSize = 3000
 		
 		############################################################################################
+		# nncalendar Konfiguration
+		
+		nncalendar {
+		
+			# Label für das Flexform
+			title = NN Calendar-Einträge
+
+			# Name der Extension, um die es geht			
+			extension = nncalendar
+			templatePath = typo3conf/ext/nnfesubmit/Resources/Private/Modules/nncalendar/
+			includeCSS {
+				1 = typo3conf/ext/nnfesubmit/Resources/Public/Css/nncalendar.css
+			}
+			includeJS.1 = typo3conf/ext/nnfesubmit/Resources/Public/Js/nncalendar.js
+			
+			# Tabelle, in der die Daten später landen sollen
+			tablename = tx_nncalendar_domain_model_entry
+			
+			# Empfänger der Freigabe-Mails. Wenn enabled = 0 werden Beiträge direkt ohne Freigabe freigeschaltet
+			admin {
+				enabled = 1
+				toEmail = david@99grad.de
+				toName = David Bascom
+				fromEmail = info@99grad.de
+				fromName = Daniel Düsentrieb
+				subject = Bitte neuen Kalender-Eintrag freischalten
+			}
+
+			# Bestätigungs-Seite zeigen nach Absenden der Formulars?
+			# Flash-Message statt eigene Seite: showConfirmationForm = 0, showApprovedPage = 0
+			showConfirmationForm = 1
+			confirmationPid = 115
+			
+			# Nach Eintrag der Daten: Cache leeren für welche Seiten? (pid-Liste)
+			clearCachePid = 108
+			
+			# Seite, auf der Eintrag editiert werden kann
+			editPid = 114
+			
+			# "Vielen Dank, Admin prüft den Beitrag"-Seite
+			thanksPid = 
+			thanksTemplate = Thanks.html
+			
+			# "Beitrag wurde freigeschaltet"-Seite. Wird keine approvedPid angegeben, wird die aktuelle Seite neu geladen, was z.B. Sinn macht,
+			# wenn das PlugIn per ViewHelper in eine fremde Extension eingebunden wird (s.u.). approvedTemplate bestimmt dann, welches Template dargestellt
+			# werden soll. Default ist Approved.html – kann aber auch Form.html sein, damit nach Upload direkt wieder das Formular erscheint
+			showApprovedPage = 0
+			approvedPid = 
+			approvedTemplate = Approved.html
+			
+			# Werte, die immer in Datenbank geschrieben werden sollen ([field] = [Wert])
+			insert {
+				pid = 109
+				cruser_id = 1
+			}
+			
+			# Default-Werte für das Formular
+			default {
+				#category.0 = 3	
+				title = Test FE
+				city = Wiesbaden
+				from_date = 18.07.2015
+				description = Das ist ein Test
+				url_registration = david@99grad.de
+				name = David Bascom
+				email = david@99grad.de
+				phone = 0611-4080919
+			}
+			
+			# Media-Dateien, die in Verzeichnis kopiert werden sollen ([field] = [Dateiverzeichnis])
+			# Beachten: Das name-Attribut des ViewHelpers muss name="*_upload" heißen: <f:form.upload name="file_upload" />
+			media {
+				img = uploads/tx_nncalendar/
+			}
+			
+			# MM-Relationen z.B. für News/Kalender-Kategorien ([field] = [Tabelle])
+			mm_tables {
+				category = tx_nncalendar_category_item_mm
+			}
+			
+			# Validierung der Formulardaten über Core-Validatoren (kann durch eigenen Validator im Mapper verfeinert werden)
+			# Mehrere, parallele Prüfungen durch "," trennen
+			# Typische Validatoren: notEmpty, emailAddress, filetypeIsDocument, filetypeIsImage
+			validation {
+				title = notEmpty
+				img = filetypeIsImage
+			}
+			
+		}
+		
+		############################################################################################
 		# nnfilearchive Konfiguration
 		
 		nnfilearchive {

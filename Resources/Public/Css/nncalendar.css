@@ -1,0 +1,131 @@
+
+
+.nnfa-form h2.header {
+	background-color: #c90012;
+	color: #fff;
+	padding: 15px;
+}
+
+.nnfa-form {
+	background-color: #eeeeee;
+}
+
+.nnfa-form form {
+	margin-top: 15px;
+	padding: 0 0 0 15px;
+}
+
+.nnfa-form form ul {
+	margin: 0 0 0 0;
+	padding: 0 0 0 18px;
+}
+
+.nnfa-form .section {
+	padding-bottom: 20px;
+}
+
+.nnfa-form .section:before {
+	content: ' ';
+	display: block;
+	border-top: 1px solid #a1a1a1;
+	margin: 0 15px 15px 15px;
+}
+
+.nnfa-form .section.first:before {
+	display: none;
+}
+
+
+.nnfa-form .icon:before {
+	content:' ';
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	margin: -4px 0 -10px 0;
+	background: transparent url(../Imgs/folder.svg) center center no-repeat;
+	background-size: contain;
+	-o-background-size: contain;
+	-moz-background-size: contain;
+	-webkit-background-size: contain;
+	vertical-align: top;
+}
+
+.nnfa-form.nnfa-list .icon:before {
+	margin: 0px 10px -10px 0;
+}
+
+.nnfa-form .icon-folder:before {
+	background-image: url(../Imgs/folder.svg);
+	width: 32px;
+	height: 30px;
+}
+
+.nnfa-form.nnfa-list .icon-trash:before {
+	background-image: url(../Imgs/trash.svg);
+	margin: -3px 8px -5px 0;
+}
+
+.nnfa-form .media-delete-btn,
+.nnfa-form .fileupload-box {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.nnfa-form .media-delete-btn  {
+	margin: 10px 0 0 0;
+}
+
+.fileupload-box .fileupload,
+.fileupload-box .filename {
+	display: inline-block;
+}
+
+.fileupload-box {
+	margin-right: 15px;
+}
+
+.fileupload-box .icon {
+	margin-right: 10px;
+}
+
+.fileupload {
+	position: relative;
+	overflow: hidden;
+	margin: 0 20px 0 0;
+}
+
+.fileupload input.upload {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+.preview-file {
+	margin: 0 0 15px 0;
+}
+
+@media (max-width: 768px) { 
+
+	.fileupload-box,
+	.fileupload-box .filename,
+	.fileupload-box .fileupload {
+		display: block;
+		width: 100%;
+	}
+
+	.nnfa-form .media-delete-btn,
+	.fileupload-box .fileupload,
+	.fileupload-box {
+		margin: 0 0 15px 0;
+	}
+		
+}
+

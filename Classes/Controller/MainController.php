@@ -386,7 +386,7 @@ class MainController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$validationKey 	= $this->anyHelper->createKeyForUid( $validationUid );
 		$adminKey 		= $this->anyHelper->createKeyForUid( $validationUid, 'admin' );
 		
-		$mapperVars = $this->insertViewVariablesFromMapper( $extName );
+		$mapperVars 	= (array) $this->insertViewVariablesFromMapper( $extName );
 
 		// E-Mail an Admin zur Freigabe senden?
 		if ($sendToAdmin) {
@@ -409,6 +409,8 @@ class MainController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 				$tmplPath.$emailTemplate, 
 				$data, true, null, false
 			);
+
+die($html);
 
 			$this->anyHelper->send_email(array_merge($settings['admin'], array(
 				'html'		=> $html
@@ -496,7 +498,7 @@ class MainController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		
 		$notificationType = $srcUid ? 'feedit' : 'upload';
 		
-		if ($settings['notification'][$notificationType]['enabled'] !== '0') {
+		if ($settings['notification'] && $settings['notification'][$notificationType]['enabled'] !== '0') {
 		
 			// Daten des Ersteller (fe_user) laden, damit in der Mail der Name eingefügt werden kann
 			$feUser = $this->feUserRepository->findOneByUid( $data['_feUserUid'] );
@@ -599,7 +601,8 @@ class MainController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 
 	public function insertViewVariablesFromMapper( $extName, $gp = null ) {
 		if ($mapper = $this->createMapperObject($extName)) {
-			return $mapper->insertViewVariables($this->view, $this->settings[$extName], $this->settings, $gp ? $gp : $this->_GP);
+			$view = (array) $this->view;
+			return $mapper->insertViewVariables($view, $this->settings[$extName], $this->settings, $gp ? $gp : $this->_GP);
 		}
 	}
 	

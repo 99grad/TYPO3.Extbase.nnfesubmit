@@ -1,0 +1,151 @@
+{namespace VH=Nng\Nnfesubmit\ViewHelpers}
+
+<div class="nnfesubmit-form nnfesubmit">
+	<f:form action="validateForm" noCacheHash="1" enctype="multipart/form-data">
+	
+			
+
+		<div class="form-section">
+			
+			<h2 class="h-21">Datum und Beschreibung</h2>
+			
+			<div class="form-row {f:if(condition:'{errors.title}', then:'error')}">
+				<label>Titel der Veranstaltung/des Seminars<sup>*</sup></label>
+				<f:form.textfield class="form-control" name="title" value="{gp.title}" />
+			</div>
+			
+			<div class="form-row {f:if(condition:'{errors.city}', then:'error')}">
+				<label>Ort der Veranstaltung</label>
+				<f:form.textfield class="form-control" name="city" value="{gp.city}" />
+			</div>
+			
+			<div class="form-row fce-col-element fce-2col prop_50_50 ">	
+				<div class="fce-col fce-col-1 fce-col-first">
+				
+					<div class="fce-col-inner">
+						<div class="{f:if(condition:'{errors.from_date}', then:'error')}">
+							<label>Datum (Format: tt.mm.jjjj)<sup>*</sup></label>
+							<input type="text" name="tx_nnfesubmit_nnfesubmit[from_date]" value="{gp.from_date}" 
+								class="required form-control datepicker parsley-validated" 
+								data-date-format="dd.mm.yyyy" 
+								data-type="alphanum" 
+								data-trigger="focusin focusout keyup" 
+								data-validation-minlength="1" />
+						</div>
+					</div>
+				</div>
+				<div class="fce-col fce-col-2 fce-col-last">
+						<div class="fce-col-inner">
+						<div class="{f:if(condition:'{errors.to_date}', then:'error')}">
+							<label>Falls mehrtägig: End-Datum</label>
+							<input type="text" name="tx_nnfesubmit_nnfesubmit[to_date]" value="{gp.to_date}" 
+								class="required form-control datepicker parsley-validated" 
+								data-date-format="dd.mm.yyyy" 
+								data-type="alphanum" 
+								data-trigger="focusin focusout keyup" 
+								data-validation-minlength="1" />
+						</div>
+					</div>
+				</div>
+				<div class="clear_div"></div>
+			</div>
+			
+			<div class="form-row {f:if(condition:'{errors.description}', then:'error')}">
+				<label>Kurze Beschreibung</label>
+				<f:form.textarea class="rte" name="description" id="description" value="{gp.description}" cols="10" rows="10" />
+			</div>
+		</div>
+		
+		<div class="form-section">
+			<h2 class="h-21">Buchung</h2>
+			<p>Falls Sie möchten, erscheint auf der Webseite direkt ein Link zur Buchung Ihrer Veranstaltung. 
+			Geben Sie hier eine E-Mail-Adresse oder einen Link zu Ihrem Anmeldeformular an. Diese Adresse
+			wird auf der Webseite öffentlich gezeigt.</p>
+			
+			<div class="form-row {f:if(condition:'{errors.url_registration}', then:'error')}">
+				<label>E-Mail oder Web-Adresse</label>
+				<f:form.textfield class="form-control" name="url_registration" value="{gp.url_registration}" />
+			</div>
+		</div>
+		
+		<!--div class="form-section">
+			<h2 class="h-21">Kategorisierung</h2>
+			<p>Ordnen Sie Ihre Veranstaltung eine oder mehrere Kategorien zu:</p>
+			
+			<f:for each="{categories}" as="label" key="uid">
+				<div class="form-checkbox">
+				<f:form.checkbox name="category[]" checked="{VH:inArray(arr:'{gp.category}', value:'{uid}')}" value="{uid}" id="category-{uid}" />
+				<label for="category-{uid}">{label}</label>
+				</div>
+			</f:for>
+			
+		</div-->
+		
+		<div class="form-section">						
+			<div class="form-row">
+
+				<h2 class="h-21">Bild der Veranstaltung</h2>
+
+				<f:if condition="{errors.img.filesize}">
+					<p class="error-msg">
+						<b>Datei ist zu groß!</b> Maximal 2 MB sind erlaubt.
+					</p>
+				</f:if>
+				<f:if condition="{errors.img.invalid_filetype}{errors.img}">
+					<p class="error-msg">
+						<b>Datei-Typ ist nicht erlaubt</b> Bitte nur jpg, gif oder png hochladen.
+					</p>
+				</f:if>
+				<f:if condition="{gp.img}">
+					<f:then>
+						<div class="form-media">
+							<f:image src="{gp.img}" width="200c" height="200c" alt="bild" />
+							<f:form.hidden name="img" value="{gp.img}" />
+						</div>
+					</f:then>
+					<f:else>
+						<p>Haben Sie ein passendes Foto oder Logo zur Veranstaltung? Hier können Sie ein JPG (max. 2 MB) hochladen. Ein quadratisches Bild ist für die Darstellung am besten geeignet, andere Formate werden quadratisch beschnitten.</p>
+						<p><b>Achtung:</b> Bitte stellen Sie sicher, dass Sie die Rechte zum Veröffentlichen des hochgeladenen Bildes haben und keine Urheberrechte Dritter verletzen. Der Magische Zirkel übernimmt keine Haftung für widerrechtlich hochgeladenes Bildmaterial.</p>
+					</f:else>
+				</f:if>
+				
+				<f:form.upload name="img_upload" class="btn btn-default" />	
+
+			</div>
+		</div>
+		
+		
+		
+		<div class="form-section">
+			<h2 class="h-21">Ihre Kontaktdaten</h2>
+			<p>Bitte geben Sie Ihre Kontaktdaten ein, damit wir Sie für eventuelle Rückfragen kontaktieren können. 
+			Diese Angaben erscheinen <b>nicht</b> auf der Webseite - falls Sie Ihre Kontaktdaten gerne veröffentlichen möchten, 
+			nutzen Sie dazu das Textfeld oben.</p>
+			
+			<div class="form-row {f:if(condition:'{errors.name}', then:'error')}">
+				<label>Ihr Name<sup>*</sup></label>
+				<f:form.textfield class="form-control" name="name" value="{gp.name}" />
+			</div>
+			
+			<div class="form-row {f:if(condition:'{errors.email}', then:'error')}">
+				<label>Ihre E-Mail<sup>*</sup></label>
+				<f:form.textfield class="form-control" name="email" value="{gp.email}" />
+			</div>
+			
+			<div class="form-row {f:if(condition:'{errors.phone}', then:'error')}">
+				<label>Telefon-Nummer<sup>*</sup></label>
+				<f:form.textfield class="form-control" name="phone" value="{gp.phone}" />
+			</div>
+		</div>
+		
+		<div class="form-section clearfix">
+			<f:form.submit value="Eintrag senden" class="btn btn-dark btn-default btn-submit" />
+		</div>
+		
+		<f:if condition="{gp._key}">
+			<f:form.hidden name="_key" value="{gp._key}" />
+			<f:form.hidden name="_entry" value="{gp._entry}" />
+		</f:if>
+
+	</f:form>
+</div>
