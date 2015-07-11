@@ -1,0 +1,80 @@
+{namespace VH=Nng\Nnfesubmit\ViewHelpers}
+
+<VH:contentElement uid="474" />
+
+<div class="nnfesubmit-form nnfesubmit-confirm nnfesubmit">
+	
+	<f:form action="showForm">
+	
+		<div class="form-section">
+
+			<div class="clearfix">
+				<f:if condition="{gp.img}">
+					<div class="image">
+						<f:image src="{gp.img}" maxWidth="200" alt="bild" />
+						<f:form.hidden name="img" value="{gp.img}" />
+					</div>
+				</f:if>
+		
+				<h2 class="h-21">{gp.title}</h2>
+				<p><b>Datum:</b> {gp.from_date} {f:if(condition:'{gp.to_date}', then:' bis {gp.to_date}')} in {gp.city}</p>
+				
+				<f:format.html>{gp.description}</f:format.html>
+				
+				<f:if condition="{gp.url_registration}">
+					<p><b>Link zur Buchung:</b></p>
+					<p><f:link.page pageUid="{gp.url_registration}" target="_blank">{gp.url_registration}</f:link.page></p>
+				</f:if>
+				
+				<f:if condition="{gp.category}">
+					<p><b>Kategorien:</b></p>
+					<ul>
+					<f:for each="{categories}" as="label" key="uid">
+						<f:if condition="{VH:inArray(arr:'{gp.category}', value:'{uid}')}">
+							<li>{label}</li>
+						</f:if>
+					</f:for>
+					</ul>
+				</f:if>
+				
+			</div>
+			
+			<div class="border-top">
+				<h2 class="h-21">Kontakt für Rückfragen:</h2>
+				<p><b>Ihr Name:</b> {gp.name}</p>
+				<p><b>Ihre E-Mail:</b> {gp.email}</p>
+				<p><b>Telefon:</b> {gp.phone}</p>
+			</div>
+			
+			<f:form.hidden name="url_registration" value="{gp.url_registration}" />
+			<f:form.hidden name="title" value="{gp.title}" />
+			<f:form.hidden name="from_date" value="{gp.from_date}" />
+			<f:form.hidden name="to_date" value="{gp.to_date}" />
+			<f:form.hidden name="city" value="{gp.city}" />
+			<f:form.hidden name="description" value="{gp.description}" />
+			<f:form.hidden name="name" value="{gp.name}" />
+			<f:form.hidden name="email" value="{gp.email}" />
+			<f:form.hidden name="phone" value="{gp.phone}" />
+			
+			<f:if condition="{gp.category}">
+				<f:for each="{gp.category}" as="uid">
+					<f:form.hidden name="category[]" value="{uid}" />
+				</f:for>
+			</f:if>
+			
+		</div>
+	
+		<div class="form-section clearfix">
+
+			<button name="tx_nnfesubmit_nnfesubmit[finalize]" value="1" class="btn btn-dark btn-default btn-submit">{f:if(condition:'{gp._key}', then:'Beitrag jetzt freischalten', else:'Jetzt senden')}</button>		
+			<button class="btn btn-default">Ändern</button>
+			
+			<f:if condition="{gp._key}">
+				<f:form.hidden name="_key" value="{gp._key}" />
+				<f:form.hidden name="_entry" value="{gp._entry}" />
+			</f:if>
+		</div>
+		
+	</f:form>
+
+</div>

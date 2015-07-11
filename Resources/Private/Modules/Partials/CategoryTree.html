@@ -1,0 +1,30 @@
+{namespace VH=Nng\Nnfesubmit\ViewHelpers}
+
+<f:if condition="{tree.node.uid}">
+<ul>
+<li class="lv-{tree.node._tree_depth}">
+	<div class="form-checkbox">
+		<f:form.checkbox name="{name}" checked="{VH:inArray(arr:selected, value:'{tree.node.uid}')}" value="{tree.node.uid}" id="category-{tree.node.uid}" />
+		<label for="category-{tree.node.uid}">{tree.node.title}</label>
+	</div>
+</f:if>
+
+<f:for each="{tree.children}" as="item" iteration="i">
+	<ul class="lv-{item._tree_depth}">
+		<li>
+		
+			<div class="form-checkbox">
+				<f:form.checkbox name="{name}" checked="{VH:inArray(arr:selected, value:'{item.uid}')}" value="{item.uid}" id="category-{item.uid}" />
+				<label for="category-{item.uid}">{item.title}</label>
+			</div>
+
+			<f:if condition="{item._children}">
+				<f:render partial="CategoryTree" arguments="{tree:{children:item._children}, selected:selected, name:name}" />
+			</f:if>
+		</li>
+	</ul>
+</f:for>
+
+<f:if condition="{tree.node.uid}">
+</li></ul>
+</f:if>

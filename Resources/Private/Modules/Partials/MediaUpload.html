@@ -1,0 +1,12 @@
+{namespace VH=Nng\Nnfesubmit\ViewHelpers}
+
+<div class="fileupload-box pointer" data-name="{name}">
+	<div class="fileupload btn btn-default btn-lg btn-grey no-marg-left">
+		<span>Datei wählen ...</span>
+		<f:form.upload name="{name}_upload" class="pointer btn btn-default upload" />
+	</div>
+	
+	<div class="filename pointer">
+		<span class="text bold icon icon-type-{VH:file(func:'type',filename:file)} icon-suffix-{VH:file(func:'suffix',filename:file)}" data-placeholder="Keine Datei ausgewählt"></span>
+	</div>
+</div>

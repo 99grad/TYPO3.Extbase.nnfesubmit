@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-10-19T14:04:19Z" product-name="nnfesubmit">
+		<header/>
+		<body>
+
+			<trans-unit id="tx_nnfesubmit_domain_model_entry">
+				<source>Einträge</source>
+			</trans-unit>
+			<trans-unit id="tx_nnfesubmit_domain_model_entry.ext">
+				<source>ext</source>
+			</trans-unit>
+			<trans-unit id="tx_nnfesubmit_domain_model_entry.data">
+				<source>data</source>
+			</trans-unit>
+			<trans-unit id="tx_nnfesubmit_domain_model_entry.status">
+				<source>status</source>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>

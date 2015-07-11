@@ -1,0 +1,71 @@
+{namespace VH=Nng\Nnfesubmit\ViewHelpers}
+
+<!-- Diese Mail wird an den Admin versendet -->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+
+<!-- Outlook wants CSS inside the body-Tag! -->
+
+<style>
+<f:render partial="EmailStyleSheet.css" />
+</style>
+
+
+
+<table class="center-box">
+	<tr><td class="center-box-td">
+	<table class="main">
+		<tr>			
+			<td class="main-col-1">
+				
+				<h1 class="big">Eintrag auf Webseite des MZvD</h1>
+				<p><b>{name}</b> möchte einen Eintrag auf der Webseite machen.</p>
+				<p>Kontakt für Rückfragen: <a href="mailto:{email}">{email}</a> · Tel. {phone}</p>
+				
+				<div class="text">
+					<p><b>Datum:</b> {from_date} {f:if(condition:'{to_date}', then:' bis {to_date}')} in {city}</p>
+					<h1>{title}</h1>
+					<f:format.html>{description}</f:format.html>
+					
+					<f:if condition="{url_registration}">
+						<p><b>Link zur Buchung:</b></p>
+						<p><f:link.page pageUid="{url_registration}" target="_blank">{url_registration}</f:link.page></p>
+					</f:if>
+					
+					<f:if condition="{category}">
+						<p><b>Kategorien:</b></p>
+						<ul>
+						<f:for each="{categories}" as="label" key="uid">
+							<f:if condition="{VH:inArray(arr:'{category}', value:'{uid}')}">
+								<li>{label}</li>
+							</f:if>
+						</f:for>
+						</ul>
+					</f:if>
+					
+					<f:if condition="{img}">
+						<div class="image">
+							<img src="{baseUrl}{f:uri.image(src:'{img}', maxWidth:'200')}" />
+							<f:form.hidden name="img" value="{img}" />
+						</div>
+					</f:if>
+				</div>
+				
+				<div class="action">
+					<a href="{baseUrl}index.php?eID=nnfesubmit&key={validationKey}&uid={validationUid}&action=approve">Freigeben</a>
+					<a href="{baseUrl}index.php?eID=nnfesubmit&key={validationKey}&uid={validationUid}&action=remove">Löschen</a>
+					<a href="{baseUrl}index.php?id={pageUid}&eID=nnfesubmit&key={validationKey}&uid={validationUid}&action=edit">Bearbeiten</a>
+				</div>
+			</td>
+		</tr>
+	</table>
+	
+</td></tr></table>
+
+</body></html>

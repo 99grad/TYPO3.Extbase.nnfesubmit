@@ -1,0 +1,65 @@
+<T3DataStructure>
+	<meta>
+	<langDisable>1</langDisable>
+	<!--  <langChildren>1</langChildren>!-->
+	</meta>
+
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Function</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<switchableControllerActions>
+						<TCEforms>
+							<label>Select function</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">Formular</numIndex>
+										<numIndex index="1">Main->showForm;Main->validateForm;Main->showConfirmationForm;Main->finalize;Main->thanks;Main->approved</numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">Main (Test)</numIndex>
+										<numIndex index="1">Main->main</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</switchableControllerActions>
+					
+					<settings.tablename>
+						<TCEforms>
+							<label>Typ (definiert per TypoScript)</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0"></numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+								</items>
+								<itemsProcFunc>\Nng\Nnfesubmit\Helper\FlexformHelper->insertTypesFromSetup</itemsProcFunc>
+								<default></default>
+							</config>
+						</TCEforms>
+					</settings.tablename>
+					
+					<settings.adminEmail>
+						<TCEforms>
+							<label>Email des Admins zur Freigabe (überschreibt plugin.tx_nnfesubmit.settings.[extName].adminEmail)</label>
+							<config>
+								<type>input</type>
+							</config>
+						</TCEforms>
+					</settings.adminEmail>
+					
+				</el>
+								
+			</ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure>

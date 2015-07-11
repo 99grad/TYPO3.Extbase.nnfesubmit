@@ -1,0 +1,107 @@
+
+.nnfesubmit label {
+	display: block;
+}
+
+.nnfesubmit .rte {
+	display: none;
+}
+
+.nnfesubmit .form-media {
+	position: relative;
+	display: inline-block;
+	margin: 0 0 15px 0;
+}
+
+.nnfesubmit .form-media:after {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	z-index: 100;
+	content: 'x';
+	background-color: rgba(255,255,255,0.9);
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	font-weight: bold;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
+.note-editable {
+	background-color: #fff;
+}
+
+.note-editable,
+.note-editable span,
+.note-editable p,
+.note-editable b {
+	font: 0.9rem/1.2rem Trebuchet, "Trebuchet MS", Arial, sans-serif;
+}
+.note-editable p b {
+	font-weight: bold;
+}
+
+.nnfesubmit .error input[type="text"] {
+	background-color: #fcdada;
+}
+
+.nnfesubmit .error-msg {
+	background-color: #fcdada;
+	border: 1px solid #f66e6e;
+	padding: 10px;
+	margin: 10px 0 20px 0;
+}
+
+.nnfesubmit .form-row {
+	margin: 0 0 15px 0;
+}
+
+.nnfesubmit label {
+	margin: 0 0 5px 0;
+	cursor: default;
+}
+
+.nnfesubmit .form-section {
+	margin: 15px 0 0 0;
+	padding: 15px 20px 20px 20px;
+}
+
+.nnfesubmit sup {
+	line-height: 0;
+	vertical-align: top;
+	font-size: 0.6rem;
+	top: 0.5rem;
+	padding: 0 0 0 2px;
+}
+
+.nnfesubmit h2.h-21 {
+	margin-bottom: 15px;
+}
+
+.nnfesubmit-confirm .image {
+	float: right;
+	margin: 0 0 0 20px;
+}
+
+.nnfesubmit-confirm .image img {
+	padding: 0 0 10px 20px;
+}
+
+
+.nnfesubmit .border-top {
+	border-top: 1px dotted #333;
+	margin: 15px 0 0 0;
+	padding: 15px 0 0 0;
+}
+
+.nnfesubmit .form-checkbox label {
+	display: inline-block;
+	cursor: pointer;
+}
+
+.nnfesubmit .form-checkbox input[type="checkbox"] {
+	margin: 0 5px 0 0;
+}
+

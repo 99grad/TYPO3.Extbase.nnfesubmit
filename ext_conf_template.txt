@@ -1,0 +1,3 @@
+
+# cat=basic/enable; type=string; label=Salting Key: Verschlüsselungs-Code (hier irgendeinen Text außer "99grad" eingeben!
+encodingKey = 99grad

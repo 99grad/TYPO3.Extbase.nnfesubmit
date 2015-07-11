@@ -1,0 +1,245 @@
+
+page.includeJS {
+	nnfesubmit = EXT:nnfesubmit/Resources/Public/Js/scripts.js
+	bootstrap_wysiwyg = EXT:nnfesubmit/Resources/Public/Js/summernote.min.js
+}
+
+page.includeCSS {
+	nnfesubmit = EXT:nnfesubmit/Resources/Public/Css/styles.css
+	bootstrap_wysiwyg = EXT:nnfesubmit/Resources/Public/Css/summernote.css
+	fontawesome = //netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css
+	fontawesome.external = 1
+}
+
+plugin.tx_nnfesubmit {
+
+	view {
+		templateRootPath = EXT:nnfesubmit/Resources/Private/Templates/
+		partialRootPath = EXT:nnfesubmit/Resources/Private/Partials/
+		layoutRootPath = EXT:nnfesubmit/Resources/Private/Layouts/
+	}
+
+	persistence {
+		storagePid = 
+	}
+
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+	}
+	
+	mvc {
+		callDefaultActionIfActionCantBeResolved = 1
+	}
+
+	
+	settings {
+		
+		maxUploadFileSize = 3000
+		
+		############################################################################################
+		# nnfilearchive Konfiguration
+		
+		nnfilearchive {
+		
+			# Label für das Flexform
+			title = NN FileArchiv-Einträge
+
+			# Name der Extension, um die es geht			
+			extension = nnfilearchive
+			templatePath = typo3conf/ext/nnfesubmit/Resources/Private/Modules/nnfilearchive/
+			includeCSS {
+				2 = typo3conf/ext/nnfesubmit/Resources/Public/Css/nnfilearchives.css
+				1 = typo3conf/ext/nnfilearchive/Resources/Public/Css/nnfilearchives.css
+			}
+			includeJS.1 = typo3conf/ext/nnfesubmit/Resources/Public/Scripts/jquery.nnfilearchives.js
+			
+			# Tabelle, in der die Daten später landen sollen
+			tablename = tx_nnfilearchive_domain_model_item
+			
+			# Empfänger der Freigabe-Mails. Wenn enabled = 0 werden Beiträge direkt ohne Freigabe freigeschaltet
+			admin {
+				enabled = 0
+				toEmail = david@99grad.de
+				toName = David Bascom
+				fromEmail = info@99grad.de
+				fromName = Daniel Düsentrieb
+				subject = Bitte neuen Upload freischalten
+			}
+			
+
+			notification {
+			
+				# Empfänger der Info, dass Eintrag freigeschaltet wurde.
+				upload < plugin.tx_nnfesubmit.settings.nnfilearchive.admin
+				upload {
+					enabled = 1
+					subject = Neue Download-Datei online
+				}
+				
+				fedelete < .upload
+				fedelete {
+					subject = Eintrag wurde entfernt
+				}
+				
+				feedit < .upload
+				feedit {
+					subject = Eintrag wurde geändert
+				}
+				
+			}
+			
+			
+			# Bestätigungs-Seite zeigen nach Absenden der Formulars?
+			# Flash-Message statt eigene Seite: showConfirmationForm = 0, showApprovedPage = 0
+			showConfirmationForm = 1
+			confirmationPid = 37
+			
+			# Nach Eintrag der Daten: Cache leeren für welche Seiten? (pid-Liste)
+			clearCachePid = 114
+			
+			# Einstellungen und Authentifizierungen zum Posten und Editieren der Einträge 
+			# Der Edit-Button wird über einen eigenen ViewHelper dieser Extension in der fremden Extension platziert.
+			privileges {
+				// Noch nicht umgesetzt		
+			}
+			
+			# Seite, auf der Eintrag editiert werden kann
+			editPid = 38
+			
+			# "Vielen Dank, Admin prüft den Beitrag"-Seite
+			thanksPid = 
+			thanksTemplate = Thanks.html
+			
+			# "Beitrag wurde freigeschaltet"-Seite. Wird keine approvedPid angegeben, wird die aktuelle Seite neu geladen, was z.B. Sinn macht,
+			# wenn das PlugIn per ViewHelper in eine fremde Extension eingebunden wird (s.u.). approvedTemplate bestimmt dann, welches Template dargestellt
+			# werden soll. Default ist Approved.html – kann aber auch Form.html sein, damit nach Upload direkt wieder das Formular erscheint
+			showApprovedPage = 0
+			approvedPid = 
+			approvedTemplate = Approved.html
+			
+			# Werte, die immer in Datenbank geschrieben werden sollen ([field] = [Wert])
+			insert {
+				#pid = 36
+				#cruser_id = 1
+			}
+			
+			# Default-Werte für das Formular
+			default {
+				#category.0 = 3	
+			}
+			
+			# Sonstiges Mapping von Feldern [field fremde Tabelle] = [nnfesubmit field]
+			mapping {
+				fe_user = cruser_id
+			}
+			
+			# Media-Dateien, die in Verzeichnis kopiert werden sollen ([field] = [Dateiverzeichnis])
+			# Beachten: Das name-Attribut des ViewHelpers muss name="*_upload" heißen: <f:form.upload name="file_upload" />
+			media {
+				file = uploads/tx_nnfilearchive/
+			}
+			
+			# MM-Relationen z.B. für News/Kalender-Kategorien ([field] = [Tabelle])
+			mm_tables {
+				category = tx_nnfilearchive_category_item_mm
+			}
+			
+			# Validierung der Formulardaten über Core-Validatoren (kann durch eigenen Validator im Mapper verfeinert werden)
+			# Mehrere, parallele Prüfungen durch "," trennen
+			# Typische Validatoren: notEmpty, emailAddress, filetypeIsDocument, filetypeIsImage
+			validation {
+				title = notEmpty
+				file = notEmpty,filetypeIsDocument
+			}
+			
+		}
+
+		############################################################################################
+		# zvmcalendar Konfiguration
+		
+		seminare {
+		
+			# Label für das Flexform
+			title = Seminar-Einträge
+
+			# Name der Extension, um die es geht			
+			extension = zvmcalendar
+			templatePath = typo3conf/ext/nnfesubmit/Resources/Private/Modules/zvmcalendar/
+			
+			# Tabelle, in der die Daten später landen sollen
+			tablename = tx_zvmcalendar_entry
+			
+			# Empfänger der Freigabe-Mails
+			adminEmail = david@99grad.de
+
+			# Bestätigungs-Seite zeigen?
+			showConfirmationForm = 1
+
+			clearCachePid = 114
+			editPid = 
+			thanksPid = 174
+			
+			# Werte, die immer in Datenbank geschrieben werden sollen ([field] = [Wert])
+			insert {
+				pid = 177
+				cruser_id = 1
+			}
+			
+			# Media-Dateien, die in Verzeichnis kopiert werden sollen ([field] = [Dateiverzeichnis])
+			media {
+				img = uploads/tx_zvmcalendar/
+			}
+			
+			# MM-Relationen z.B. für News/Kalender-Kategorien ([field] = [Tabelle])
+			mm_tables {
+				category = tx_zvmcalendar_entry_category_mm
+			}
+			
+			# Validierung der Formulardaten über Core-Validatoren (kann durch eigenen Validator im Mapper verfeinert werden)
+			validation {
+				email = notEmpty,emailAddress
+				title = notEmpty
+				from_date = notEmpty
+				name = notEmpty
+				phone = notEmpty
+				img = filetypeIsImage
+			}
+		}		
+		
+		
+	}	
+	
+}
+
+#######################################################################################################
+# TypoScript für dynamisches Einbinden des Formulars durch eine fremde Extension vorbereiten
+#
+# Beispiel in Controller:
+# $ref = $this->objectManager->get('\Nng\Nnfesubmit\Controller\MainController');
+# $html = $ref->getFormInstance( $params );
+#
+# Beispiel in Fluid:
+# {namespace FS=Nng\Nnfesubmit\ViewHelpers}
+# <FS:Fesubmit.form params="{settings:{tablename:'nnfilearchive', default:{pid:settings.storagePid, category:{0:tree.node.uid}}}}" />
+#
+#
+
+
+lib.tx_nnfesubmit_instance = USER
+lib.tx_nnfesubmit_instance {
+	userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+	extensionName = Nnfesubmit
+	pluginName = Nnfesubmit
+	vendorName = Nng
+	controller = Main
+	switchableControllerActions {
+		Main {
+			1 = showForm
+		}
+	}
+	view < plugin.tx_nnfesubmit.view
+	persistence < plugin.tx_nnfesubmit.persistence
+	settings < plugin.tx_nnfesubmit.settings
+	settings.tablename = nnfilearchive
+}

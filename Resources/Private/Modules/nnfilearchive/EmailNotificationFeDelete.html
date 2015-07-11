@@ -1,0 +1,58 @@
+{namespace VH=Nng\Nnfesubmit\ViewHelpers}
+
+<!-- Diese Mail wird an den Empfänger der Notification versendet -->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+
+<!-- Outlook wants CSS inside the body-Tag! -->
+
+<style>
+<f:render partial="EmailStyleSheet.css" />
+</style>
+{_all->f:debug()}
+<table class="center-box">
+	<tr><td class="center-box-td">
+	<table class="main">
+		<tr>			
+			<td class="main-col-1">
+				
+				<h1 class="big">Eintrag wurde gelöscht</h1>
+				<p>{feUser.name} ({feUser.email}) hat auf der Webseite {baseUrl} einen Eintrag entfernt.</p>
+				
+				<div class="text">
+					
+					<h1>{title}</h1>
+					<f:format.html>{description}</f:format.html>
+
+					<f:if condition="{file}">
+						<p>
+							Gelöschte Datei: {file}
+						</p>
+					</f:if>
+
+										
+					<f:if condition="{category}">
+						<p><b>Kategorien:</b></p>
+						<ul>
+						<f:for each="{category}" as="cid" key="k">
+							<li>{VH:arrayAccess(arr:'{categoryTree.treeByUid}', key1:'{cid}', key2:'title')}</li>
+						</f:for>
+						</ul>
+					</f:if>
+
+					
+				</div>
+								
+			</td>
+		</tr>
+	</table>
+	
+</td></tr></table>
+
+</body></html>

@@ -1,0 +1,56 @@
+{namespace VH=Nng\Nnfesubmit\ViewHelpers}
+
+
+
+<f:alias map="{filetype:'{VH:file(func:\'type\', filename:file)}'}">
+
+
+	<f:if condition="{VH:file(func:'exists', filename:'{path}{file}')}">
+	
+		<f:then>
+		
+			<f:if condition="{noThumbnail} != 1">
+				<f:then>
+				<div class="preview-{filetype} preview-file">
+					<f:link.page pageUid="{baseUrl}{path}{file}" target="_blank">
+						<f:if condition="{filetype}=='image'">
+							<img src="{baseUrl}{f:uri.image(src:'{path}{file}',width:width,height:height)}" alt="preview" />
+						</f:if>
+					
+						<f:if condition="{filetype}=='document'">
+							{VH:file(func:'basename',filename:file)}
+						</f:if>
+			
+						<f:if condition="{filetype}=='pdf'">
+							<img src="{baseUrl}{f:uri.image(src:'{path}{file}',width:width,height:height)}" alt="preview" />
+						</f:if>
+					</f:link.page>
+				</div>
+				</f:then>
+				<f:else>
+				<div class="preview-{filetype} preview-file preview-nothumb">
+					<f:link.page pageUid="{baseUrl}{path}{file}" target="_blank">
+						<span class="icon icon-file icon-type-{filetype} icon-suffix-{VH:file(func:'suffix',filename:file)}"></span>
+						{VH:file(func:'basename',filename:file)}
+					</f:link.page>
+				</div>
+				</f:else>
+			</f:if>
+			
+			<f:form.hidden id="field-{name}" name="{name}" value="{file}" />
+			
+			<!--div class="filesize">
+				<f:format.bytes>{VH:file(func:'filesize',filename:'{path}{file}')}</f:format.bytes>
+			</div-->
+			
+		</f:then>
+		
+		<f:else>
+			Datei "{file}" wurde nicht korrekt hochgeladen. Bitte erneut versuchen.
+		</f:else>
+
+	</f:if>
+	
+	
+	
+</f:alias>

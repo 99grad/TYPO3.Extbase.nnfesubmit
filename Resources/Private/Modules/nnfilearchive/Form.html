@@ -1,0 +1,138 @@
+{namespace VH=Nng\Nnfesubmit\ViewHelpers}
+
+<div class="nnfesubmit-form nnfesubmit nnfa-form nnfa-list">
+	
+	<h2 class="header">{f:if(condition:gp._key, then:'Eintrag bearbeiten', else:'Neue Datei hochladen')}</h2>
+	
+
+	<f:form action="validateForm" pageUid="{settings.confirmationPid}" method="post" enctype="multipart/form-data" addQueryString="1" argumentsToBeExcludedFromQueryString="{0:'pid'}">
+	
+
+		<!--VH:contentElement uid="473" /-->
+
+		<f:if condition="{gp.pid}"><f:form.hidden name="pid" value="{gp.pid}" /></f:if>
+		
+		<f:form.hidden name="cruser_id" value="{feUser.uid}" />
+		<f:form.hidden name="returnUrl" value="{f:if(condition:gp.returnUrl,then:'{gp.returnUrl}',else:'{settings.returnUrl}')}" />
+		<f:form.hidden name="pluginUid" value="{f:if(condition:gp.pluginUid,then:'{gp.pluginUid}',else:'{settings.pluginUid}')}" />
+
+		<!--div class="row">
+			<div class="col-sm-12 col-xs-12">
+				<p>Bitte wählen Sie eine Datei von Ihrer Festplatte aus und geben Sie in die folgenden Felder einen Titel und eine kurze Beschreibung ein.</p>
+			</div>
+		</div-->
+		
+		<div class="clearfix section first">
+
+			<f:if condition="{errors->f:count()}">
+				<div class="col-sm-12 col-xs-12">
+					<p class="error-msg">
+						Bitte überprüfen Sie Ihre Eingaben.
+					</p>
+				</div>
+			</f:if>
+
+			<div class="col-sm-12 col-xs-12">
+
+				<h2 class="h-21">Datei</h2>
+				
+				<f:if condition="{errors.file.filesize}">
+					<p class="error-msg">
+						<b>Datei ist zu groß!</b> Maximal 2 MB sind erlaubt.
+					</p>
+				</f:if>
+				
+				<f:if condition="{errors.file.invalid_filetype}">
+					<p class="error-msg">
+						<b>Datei-Typ ist nicht erlaubt</b>.
+					</p>
+				</f:if>
+
+				<f:if condition="{errors.file.notEmpty}">
+					<p class="error-msg">
+						<b>Keine Datei ausgewählt</b>.
+					</p>
+				</f:if>
+
+			</div>
+
+			<div class="col-sm-12">
+				<f:render partial="MediaUpload" arguments="{name:'file', file:gp.file}" />
+				<f:render partial="MediaPreviewDeleteButton" arguments="{name:'file', file:gp.file, path:'uploads/tx_nnfesubmit/'}" />
+			</div>
+			
+			<!--<f:comment>
+			<!-- So kann eine Vorschau des Uploads angezeigt werden! -->
+			<div class="col-sm-6">
+				<f:if condition="{gp.file}">
+					<f:then>
+						<div class="form-media media-{VH:file(func:'type', filename:gp.file)}">
+							<f:render partial="MediaPreview" arguments="{noThumbnail:1, name:'file', file:gp.file, path:'uploads/tx_nnfesubmit/', width:'200c', height:'200c'}" />
+						</div>
+					</f:then>
+				</f:if>
+			</div>
+			</f:comment>-->
+			
+		</div>
+		
+		
+		<div class="clearfix section">
+			
+			<div class="col-sm-12 col-xs-12">
+			
+				<h2 class="h-21">Beschreibung</h2>
+				
+				<div class="form-row {f:if(condition:'{errors.title}', then:'error')}">
+					<label>Titel der Datei<sup>*</sup></label>
+					<f:form.textfield class="form-control" name="title" value="{gp.title}" />
+				</div>
+			
+				<div class="form-row {f:if(condition:'{errors.description}', then:'error')}">
+					<label>Kurze Beschreibung</label>
+					
+					<!-- mit class="rte" wird es ein RTE! -->
+					<f:form.textarea class="not-rte form-control" name="description" id="description" value="{gp.description}" rows="5" />
+	
+				</div>
+	
+			</div>
+		</div>
+		
+		<div class="clearfix section hidden">
+			<div class="col-sm-12 col-xs-12">
+		
+				<h2 class="h-21">Kategorisierung</h2>
+				<p>Ordnen Sie Ihren Upload eine oder mehrere Kategorien zu:</p>
+	
+				<f:render partial="CategoryTree" arguments="{tree:categoryTree, name:'category[]', selected:gp.category}" />
+				
+				<f:for each="{categories}" as="label" key="uid">
+					<div class="form-checkbox">
+					<f:form.checkbox name="category[]" checked="{VH:inArray(arr:'{gp.category}', value:'{uid}')}" value="{uid}" id="category-{uid}" />
+					<label for="category-{uid}">{label}</label>
+					</div>
+				</f:for>
+			</div>
+			
+		</div>
+		
+		
+		
+		<div class="clearfix section">
+			<div class="col-sm-6 col-xs-6">
+				<f:link.page pageUid="{f:if(condition:gp.returnUrl,then:'{gp.returnUrl}',else:'{settings.returnUrl}')}" class="btn btn-lg btn-grey btn-default">Abbrechen</f:link.page>
+			</div>
+			<div class="col-sm-6 col-xs-6 text-right">
+				<f:form.submit value="Eintrag senden" class="btn btn-lg btn-default btn-submit" />
+			</div>
+		</div>
+			
+		<f:if condition="{gp._key}">
+			<f:form.hidden name="_key" value="{gp._key}" />
+			<f:form.hidden name="_entry" value="{gp._entry}" />
+			<f:form.hidden name="_adminKey" value="{gp._adminKey}" />
+		</f:if>
+
+	</f:form>
+</div>

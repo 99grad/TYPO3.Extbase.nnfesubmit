@@ -1,0 +1,13 @@
+{namespace VH=Nng\Nnfesubmit\ViewHelpers}
+
+
+<f:alias map="{filetype:'{VH:file(func:\'type\', filename:file)}'}">
+
+	<f:if condition="{file}">
+		<span class="pointer media-delete-btn icon icon-trash">
+			<f:form.hidden id="field-{name}" name="{name}" value="{file}" />
+			<b>Entfernen</b>
+		</span>
+	</f:if>
+	
+</f:alias>
